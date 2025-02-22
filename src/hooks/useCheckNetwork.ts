@@ -6,11 +6,12 @@ export const useCheckNetwork = (onReconnect?: () => void): boolean => {
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
-      const offline = !state.isConnected;
-      setIsOffline(offline);
+      setIsOffline(!state.isConnected);
 
-      if (!offline && onReconnect) {
-        onReconnect();
+      if (state.isConnected && onReconnect) {
+        setInterval(() => {
+          onReconnect();
+        }, 6000);
       }
     });
 

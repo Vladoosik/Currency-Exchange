@@ -14,6 +14,7 @@ import {setFavorite} from '../../services/favoriteSlicer.ts';
 import {useLoadCachedRates} from '../../hooks/loadCacheRates.ts';
 import {useCheckNetwork} from '../../hooks/useCheckNetwork.ts';
 import {styles} from './styles.ts';
+import Config from 'react-native-config';
 
 const BATCH_SIZE = 20;
 const CurrencyList = () => {
@@ -28,6 +29,8 @@ const CurrencyList = () => {
       refetch();
     }
   });
+
+  console.log(isOffline);
 
   const ratesData = cachedData?.rates || data?.rates || {};
   const baseCurrency = cachedData?.base || data?.base || 'EUR';
