@@ -1,97 +1,99 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
-
 # Getting Started
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+>**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-## Step 1: Start Metro
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Step 1: Clone the project
+first of all you need clone this project using git.
+Go to console and choose the  desired folder where you want to deploy the project. 
+Write on console the following command:
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+```bash
+git clone https://github.com/Vladoosik/Currency-Exchange.git
+```
 
-```sh
-# Using npm
+Wait until cloning is completed, then proceed to the next step
+
+
+## Step 2: Install the required modules
+In order for the project to run, you need to install the necessary modules; this
+can be done by writing the following command in the terminal:
+
+```bash
+npm install
+```
+The project uses only the **npm** package manager, you will need to install it first
+
+## Step 3: Start the Metro Server
+
+Third, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+
+To start Metro, run the following command from the _root_ of your React Native project:
+
+```bash
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Build and run your app
+## Step 4: Start your Application
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
-### Android
+### For Android
 
-```sh
-# Using npm
+```bash
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### iOS
+### For iOS
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+```bash
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modify your app
+## Step 5: Congratulations, you are amazing
 
-Now that you have successfully run the app, let's make changes!
+Now you can use the application
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+There are only 2 screens.
+1. The **Currency screen** that receives data from the api (_fixer.io_). Data from the server is loaded once. After that, the list of currencies is loaded into the cache (using **Async storage**) and displayed on this screen. Even if the user is not connected to the Internet, the application will notify you that you are offline. A custom hook is used here that notifies about changes in the network status. The **NetInfo library** is used inside. You will not get a full list of currencies only under one condition: if you do not have access to the Internet when you first launch the application. On the screen itself you can see a pair of currencies and the price in accordance with the euro (EUR), since the free version of the API does not allow you to change the base currency (although I really wanted to). Also, for better optimization of the list, **"lazy loading"** is used, which is necessary in order not to overload our list with a large number of currencies (since fixer.io returns more than 120 elements). At the end of each currency there is a star icon, by clicking on it you can add the currency to your favorite list, If the star has changed its color, then you have added it to your favorites. When you click again, the currency will be removed from your favorites
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+2. **Favorites screen**. By default it is empty. To add a currency to your favorites, return to the main screen using the **bottom navigation**. This screen shows the currencies that you have added to your favorites. This list is also stored in the cache, and if you restart the application, your list of favorite currencies will be saved. Also, if you click on the star in this screen, the selected currency will be removed from the list.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## Technologies:
 
-## Congratulations! :tada:
+The application uses a classic architecture, where all the things necessary for the frontend are in src. Let's figure out what is there.
 
-You've successfully run and modified your React Native App. :partying_face:
+**assets**. The folder stores everything related to the application media (in my case, only svg files are used)
 
-### Now what?
+**components**.
+all components that can be used in multiple screens are stored (Buttons, inputs, elements for rendering lists)
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+**hooks**.
+custom hooks that are convenient to use in the main screens. I have stored there: checking the Internet connection, loading data into the cache
 
-# Troubleshooting
+**navigation**.
+The main settings for navigating the application are stored here. Since I only use the bottom navigation, I only have it there
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+**services**.
+The folder stores all the settings for the global state manager (in my case, Redux Tollkit, RTK Query)
 
-# Learn More
+**screens**.
+The main screens of the application, in my case, these are CurrencyList and FavoriteList
 
-To learn more about React Native, take a look at the following resources:
+**store**.
+There is just a store redux, so that everything works correctly
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**types**.
+General types that can be used for most components (mainly needed for Typescript)
+
+###Selected API: **fixer.io** 
+Why ?: Initially I wanted to use SWOP but I didn't receive confirmation by mail, so I decided to choose another API. It's not very convenient, but when I realized this, the project architecture was already made for it, so I decided to leave it.
+###API Key and base URL
+the key to the api and the base url is in a protected place (.env file), so it is necessary to insert it into the root folder of the project for the correct operation of the application
+
+###Used Tehnologies
+Typescript, React Navigation Tabs, Redux Toolkit, RTK Query, Async Storage, Net-Info
