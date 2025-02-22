@@ -90,10 +90,10 @@ There is just a store redux, so that everything works correctly
 **types**.
 General types that can be used for most components (mainly needed for Typescript)
 
-###Selected API: **fixer.io** 
+### Selected API: **fixer.io** 
 Why ?: Initially I wanted to use SWOP but I didn't receive confirmation by mail, so I decided to choose another API. It's not very convenient, but when I realized this, the project architecture was already made for it, so I decided to leave it.
 ###API Key and base URL
 the key to the api and the base url is in a protected place (.env file), so it is necessary to insert it into the root folder of the project for the correct operation of the application
 
-###Used Tehnologies
+### Used Tehnologies
 Typescript, React Navigation Tabs, Redux Toolkit, RTK Query, Async Storage, Net-Info
